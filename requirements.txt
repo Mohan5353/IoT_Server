@@ -6,6 +6,7 @@ idna
 itsdangerous
 Jinja2
 MarkupSafe
+gunicorn
 requests
 urllib3
 Werkzeug
