@@ -4,10 +4,8 @@ from datetime import datetime
 from github import Github
 from flask import Flask, request, render_template
 
-git = Github("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")
+git = Github("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")
 repo = git.get_user().get_repo("IoT_Server")
-previous_sha = ""
-previous_path = ""
 
 app = Flask(__name__)
 
@@ -30,14 +28,10 @@ def get_data():
 
 @app.route('/save', methods=["GET"])
 def save_data():
-    global sensor_data, previous_sha, previous_path
+    global sensor_data
     df = pd.DataFrame(sensor_data)
-    if previous_sha:
-        repo.delete_file(path=previous_path, message="Deleted", sha=previous_sha)
-    previous_path = f"{uuid.uuid1()}.csv"
-    commit = repo.create_file(path=previous_path, message=f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
-                              content=df.to_csv(), branch="main")
-    previous_sha = commit['commit'].sha
+    repo.create_file(path=f"data/{uuid.uuid1()}.csv", message=f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+                     content=df.to_csv(), branch="main")
     return render_template("save.html"), 202
 
 
