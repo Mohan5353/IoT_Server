@@ -35,6 +35,3 @@ def save_data():
                      content=df.to_csv(), branch="main")
     return render_template("save.html"), 202
 
-
-if __name__ == '__main__':
-    app.run(debug=True, port=80, host="0.0.0.0")
