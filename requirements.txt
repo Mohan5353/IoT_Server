@@ -10,3 +10,7 @@ gunicorn
 requests
 urllib3
 Werkzeug
+pygithub
+pandas
+uuid
+datetime
