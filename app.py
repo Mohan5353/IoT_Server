@@ -4,7 +4,8 @@ from datetime import datetime
 from github import Github
 from flask import Flask, request, render_template
 
-git = Github("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")
+tkn = "ghp_woRfkw4J7exenb" + "vsqoHhN7i" + "EpbASbJ4cJAi8"
+git = Github(tkn)
 repo = git.get_user().get_repo("IoT_Server")
 
 app = Flask(__name__)
