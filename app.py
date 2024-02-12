@@ -22,6 +22,7 @@ def home():
 def get_data():
     global sensor_data
     data = eval(request.get_data())
+    print(data)
     for item in sensor_data.keys():
         sensor_data[item].append(data[item])
     return render_template("received.html"), 201
@@ -31,6 +32,7 @@ def get_data():
 def save_data():
     global sensor_data
     df = pd.DataFrame(sensor_data)
+    print(df.head())
     repo.create_file(path=f"data/{uuid.uuid1()}.csv", message=f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
                      content=df.to_csv(), branch="main")
     return render_template("save.html"), 202
