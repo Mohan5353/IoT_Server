@@ -29,7 +29,7 @@ def get_data():
     data = eval(request.get_data())
     print(data)
     data = pd.DataFrame(data)
-    globals()['sensor_data'] = pd.concat(data,sensor_data,ignore_index=True)
+    globals()['sensor_data'] = pd.concat([data,sensor_data],ignore_index=True)
     print(sensor_data)
     return render_template("received.html"), 201
 
