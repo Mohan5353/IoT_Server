@@ -27,7 +27,7 @@ def home():
 def get_data():
     global sensor_data
     data: dict = eval(request.get_data())
-    sensor_data.loc[len(sensor_data)] = data
+    sensor_data.append(data,ignore_index=True)
     print(data)
     print(sensor_data)
     return render_template("received.html"), 201
