@@ -26,8 +26,8 @@ def home():
 @app.route("/data", methods=["POST"])
 def get_data():
     global sensor_data
-    data: dict = eval(request.get_data())
-    sensor_data.append(data,ignore_index=True)
+    data = pd.DataFrame(eval(request.get_data()))
+    globals()['sensor_data'] = pd.concat(data,sensor_data,ignore_index=True)
     print(data)
     print(sensor_data)
     return render_template("received.html"), 201
