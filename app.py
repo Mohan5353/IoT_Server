@@ -25,16 +25,19 @@ def home():
 
 @app.route("/data", methods=["POST"])
 def get_data():
-    sensor_data = pd.read_csv("data.csv",index_col=['Temperature','Humidity','Soil Moisture','PH','Rain Level'])
+    sensor_data = pd.read_csv("data.csv")
     data = pd.DataFrame(eval(request.get_data()))
     print(data)
-    pd.concat([data, sensor_data]).to_csv("data.csv",index=False)
+    pd.concat([data, sensor_data]).to_csv("data.csv")
     return render_template("received.html"), 201
 
 
 @app.route('/save', methods=["GET"])
 def save_data():
-    data = pd.read_csv("data.csv", index_col=['Temperature','Humidity','Soil Moisture','PH','Rain Level'])
+    data = pd.read_csv("data.csv")
+    for col in data.columns:
+      if col not in ['Temperature', 'Humidity', 'Soil Moisture', 'PH', 'Rain Level']:
+          data.drop([col], axis=1, inplace=True)
     repo.create_file(path=f"data/{uuid.uuid1()}.csv", message=f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
                      content=data.to_csv(), branch="main")
     print(data)
