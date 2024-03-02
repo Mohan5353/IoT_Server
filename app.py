@@ -25,21 +25,19 @@ def home():
 
 @app.route("/data", methods=["POST"])
 def get_data():
-    global sensor_data
-    data = eval(request.get_data())
+    sensor_data = pd.read_csv("data.csv")
+    data: dict = eval(request.get_data())
     print(data)
-    data = pd.DataFrame(data)
-    globals()['sensor_data'] = pd.concat([data,sensor_data],ignore_index=True)
-    print(sensor_data)
+    pd.concat([data, sensor_data], ignore_index=True).to_csv("data.csv")
     return render_template("received.html"), 201
 
 
 @app.route('/save', methods=["GET"])
 def save_data():
-    global sensor_data
+    data = pd.read_csv("data.csv")
     repo.create_file(path=f"data/{uuid.uuid1()}.csv", message=f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
-                     content=sensor_data.to_csv(), branch="main")
-    print(sensor_data)
+                     content=data.to_csv(), branch="main")
+    print(data)
     return render_template("save.html"), 202
 
 
