@@ -11,7 +11,7 @@ requests
 urllib3
 Werkzeug
 pygithub
-pandas == 1.4
+pandas
 uuid
 pyarrow
 datetime
