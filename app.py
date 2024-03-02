@@ -28,6 +28,8 @@ def get_data():
     global sensor_data
     data: dict = eval(request.get_data())
     sensor_data.loc[len(sensor_data)] = data
+    print(data)
+    print(sensor_data)
     return render_template("received.html"), 201
 
 
