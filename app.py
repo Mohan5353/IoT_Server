@@ -25,7 +25,7 @@ def home():
 
 @app.route("/data", methods=["POST"])
 def get_data():
-    sensor_data = pd.read_csv("data.csv")
+    sensor_data = pd.read_csv("data.csv",index=[0])
     data = pd.DataFrame(eval(request.get_data()))
     print(data)
     pd.concat([data, sensor_data]).to_csv("data.csv")
