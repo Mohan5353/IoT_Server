@@ -40,7 +40,8 @@ def save_data():
           data.drop([col], axis=1, inplace=True)
     repo.create_file(path=f"data/{uuid.uuid1()}.csv", message=f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
                      content=data.to_csv(), branch="main")
-    print(data)
+    pd.DataFrame(data={'Temperature': [], 'Humidity': [], 'Soil Moisture': [], 'PH': [], 'Rain Level': []},
+                 dtype='float32').to_csv('data.csv')
     return render_template("save.html"), 202
 
 
