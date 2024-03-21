@@ -14,8 +14,8 @@ repo = git.get_user().get_repo("IoT_Server")
 
 app = Flask(__name__)
 
-sensor_data = pd.DataFrame(data={'Temperature': [], 'Humidity': [], 'Soil Moisture': [], 'PH': [], 'Rain Level': []},
-                           dtype='float32')
+pd.DataFrame(data={'Temperature': [], 'Humidity': [], 'Soil Moisture': [], 'PH': [], 'Rain Level': []},
+                   dtype='float32').to_csv('data.csv')
 
 
 @app.route('/')
